@@ -5,7 +5,7 @@
   "scripts": {
     "ng": "ng",
     "start": "webpack-dev-server --port=3000 --config config/webpack.config.common.js",
-    "build": "webpack -p",
+    "build": "webpack -p --config config/webpack.config.common.js",
     "test": "karma start ./karma.conf.js",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
