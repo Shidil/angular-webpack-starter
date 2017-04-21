@@ -1,7 +1,7 @@
 {
-  "name": "testcli",
+  "name": "consultation-tools",
   "version": "0.0.0",
-  "license": "MIT",
+  "license": "UNLICENCED",
   "scripts": {
     "ng": "ng",
     "start": "webpack-dev-server --port=3000 --config config/webpack.config.common.js",
