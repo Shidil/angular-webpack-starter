@@ -80,7 +80,8 @@ module.exports = function (options) {
            {
              loader: 'tslint-loader',
              options: {
-               configFile: 'tslint.json'
+               configFile: 'tslint.json',
+               emitErrors: true
              }
            }
          ],
