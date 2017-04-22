@@ -195,7 +195,14 @@ module.exports = function(options) {
         },
         {
           "test": /\.ts$/,
-          "loader": "@ngtools/webpack"
+          "use": [
+            {
+              "loader": "@ngtools/webpack"
+            },
+            {
+              "loader": "angular2-template-loader"
+            }
+          ]
         }
       ]
     },

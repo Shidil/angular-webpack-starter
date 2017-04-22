@@ -9,6 +9,7 @@ const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
 
 const DllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin;
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 const METADATA = {
   port: 3000,
@@ -162,6 +163,8 @@ module.exports = function (options) {
 
         }
       }),
+
+      new DashboardPlugin()
     ],
 
     devServer: {

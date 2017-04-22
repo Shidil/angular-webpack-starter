@@ -4,8 +4,10 @@
   "license": "UNLICENCED",
   "scripts": {
     "ng": "ng",
-    "start": "webpack-dev-server --hot --config config/webpack.config.dev.js",
-    "build": "webpack -p --config config/webpack.config.common.js",
+    "dev": "webpack-dev-server --hot --config config/webpack.config.dev.js",
+    "dashboard": "webpack-dashboard",
+    "start": "webpack-dashboard -- npm run dev",
+    "build": "webpack -p --config config/webpack.config.prod.js",
     "test": "karma start ./karma.conf.js",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
@@ -70,6 +72,7 @@
     "tslint-loader": "^3.5.2",
     "typescript": "~2.2.0",
     "url-loader": "^0.5.7",
+    "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "~2.3.0",
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5"
   }
