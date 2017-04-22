@@ -1,10 +1,15 @@
 const path = require('path');
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.config.common.js'); // the settings that are common to prod and dev
+const webpackMergeDll = webpackMerge.strategy({plugins: 'replace'});
+const DllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin;
+const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 const METADATA = {
   port: 3000,
-  host: 'localhost'
+  host: 'localhost',
+  output: path.join(process.cwd(), "dist"),
+  dll: path.join(process.cwd(), "dll")
 }
 
 module.exports = function (options) {
@@ -30,7 +35,7 @@ module.exports = function (options) {
        *
        * See: http://webpack.github.io/docs/configuration.html#output-path
        */
-      path: path.join(process.cwd(), "dist"),
+      path: METADATA.output,
 
       /**
        * Specifies the name of each output file on disk.
@@ -76,6 +81,53 @@ module.exports = function (options) {
        }
       ]
     },
+
+    plugins: [
+      new DllBundlesPlugin({
+        bundles: {
+          polyfills: [
+            'core-js',
+            {
+              name: 'zone.js',
+              path: 'zone.js/dist/zone.js'
+            },
+            {
+              name: 'zone.js',
+              path: 'zone.js/dist/long-stack-trace-zone.js'
+            },
+          ],
+          vendor: [
+            '@angular/platform-browser',
+            '@angular/platform-browser-dynamic',
+            '@angular/core',
+            '@angular/common',
+            '@angular/forms',
+            '@angular/http',
+            '@angular/router',
+            '@angularclass/hmr',
+            'rxjs',
+          ]
+        },
+        dllDir: METADATA.dll,
+        webpackConfig: webpackMergeDll(commonConfig({env: 'development'}), {
+          devtool: 'cheap-module-source-map',
+          plugins: []
+        })
+      }),
+
+      /**
+       * Plugin: AddAssetHtmlPlugin
+       * Description: Adds the given JS or CSS file to the files
+       * Webpack knows about, and put it into the list of assets
+       * html-webpack-plugin injects into the generated html.
+       *
+       * See: https://github.com/SimenB/add-asset-html-webpack-plugin
+       */
+      new AddAssetHtmlPlugin([
+        { filepath: path.join(process.cwd(), `dll/${DllBundlesPlugin.resolveFile('polyfills')}`) },
+        { filepath: path.join(process.cwd(), `dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
+      ]),
+    ],
 
     devServer: {
       port: METADATA.port,
