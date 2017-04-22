@@ -4,7 +4,7 @@
   "license": "UNLICENCED",
   "scripts": {
     "ng": "ng",
-    "start": "webpack-dev-server --hot --port=3000 --config config/webpack.config.dev.js",
+    "start": "webpack-dev-server --hot --config config/webpack.config.dev.js",
     "build": "webpack -p --config config/webpack.config.common.js",
     "test": "karma start ./karma.conf.js",
     "lint": "ng lint",

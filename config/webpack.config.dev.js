@@ -1,16 +1,23 @@
 const path = require('path');
+
 const webpackMerge = require('webpack-merge'); // used to merge webpack configs
 const commonConfig = require('./webpack.config.common.js'); // the settings that are common to prod and dev
 const webpackMergeDll = webpackMerge.strategy({plugins: 'replace'});
+
+const DefinePlugin = require('webpack/lib/DefinePlugin');
+const LoaderOptionsPlugin = require('webpack/lib/LoaderOptionsPlugin');
+
 const DllBundlesPlugin = require('webpack-dll-bundles-plugin').DllBundlesPlugin;
 const AddAssetHtmlPlugin = require('add-asset-html-webpack-plugin');
 
 const METADATA = {
   port: 3000,
   host: 'localhost',
+  ENV: 'development',
+  HMR: true,
   output: path.join(process.cwd(), "dist"),
   dll: path.join(process.cwd(), "dll")
-}
+};
 
 module.exports = function (options) {
   return webpackMerge(commonConfig({env: 'development'}), {
@@ -83,6 +90,26 @@ module.exports = function (options) {
     },
 
     plugins: [
+      /**
+       * Plugin: DefinePlugin
+       * Description: Define free variables.
+       * Useful for having development builds with debug logging or adding global constants.
+       *
+       * Environment helpers
+       *
+       * See: https://webpack.github.io/docs/list-of-plugins.html#defineplugin
+       */
+      // NOTE: when adding more properties, make sure you include them in custom-typings.d.ts
+      new DefinePlugin({
+        'ENV': JSON.stringify(METADATA.ENV),
+        'HMR': METADATA.HMR,
+        'process.env': {
+          'ENV': JSON.stringify(METADATA.ENV),
+          'NODE_ENV': JSON.stringify(METADATA.ENV),
+          'HMR': METADATA.HMR,
+        }
+      }),
+
       new DllBundlesPlugin({
         bundles: {
           polyfills: [
@@ -127,6 +154,13 @@ module.exports = function (options) {
         { filepath: path.join(process.cwd(), `dll/${DllBundlesPlugin.resolveFile('polyfills')}`) },
         { filepath: path.join(process.cwd(), `dll/${DllBundlesPlugin.resolveFile('vendor')}`) }
       ]),
+
+      new LoaderOptionsPlugin({
+        debug: true,
+        options: {
+
+        }
+      }),
     ],
 
     devServer: {
@@ -136,7 +170,8 @@ module.exports = function (options) {
       watchOptions: {
         aggregateTimeout: 300,
         poll: 1000
-      }
+      },
+      overlay: true
     },
 
     /*
