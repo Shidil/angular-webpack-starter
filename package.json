@@ -15,6 +15,7 @@
     "test": "karma start ./karma.conf.js",
     "lint": "ng lint",
     "e2e": "protractor ./protractor.conf.js",
+    "prod": "npm run build && http-server dist -c-1 --cors",
     "rimraf": "rimraf",
     "prepree2e": "npm start",
     "pree2e": "webdriver-manager update --standalone false --gecko false --quiet"
@@ -49,6 +50,7 @@
     "cssnano": "^3.10.0",
     "exports-loader": "^0.6.3",
     "file-loader": "^0.10.0",
+    "http-server": "^0.9.0",
     "istanbul-instrumenter-loader": "^2.0.0",
     "jasmine-core": "~2.5.2",
     "jasmine-spec-reporter": "~3.2.0",
@@ -62,6 +64,7 @@
     "karma-sourcemap-loader": "^0.3.7",
     "less-loader": "^2.2.3",
     "ng-router-loader": "^2.1.0",
+    "optimize-js-plugin": "^0.0.4",
     "postcss-loader": "^0.13.0",
     "postcss-url": "^5.1.2",
     "protractor": "~5.1.0",
@@ -78,6 +81,7 @@
     "tslint-loader": "^3.5.2",
     "typescript": "~2.2.0",
     "url-loader": "^0.5.7",
+    "webpack": "^2.4.1",
     "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "~2.3.0",
     "webpack-dll-bundles-plugin": "^1.0.0-beta.5"

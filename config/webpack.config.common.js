@@ -26,8 +26,12 @@ const entryPoints = ["inline", "polyfills", "sw-register", "styles", "vendor", "
 const baseHref = "";
 const deployUrl = "";
 
-
-
+const environmentFiles = {
+  'development': 'environments/environment.ts',
+  'staging': 'environments/environment.stag.ts',
+  'production': 'environments/environment.prod.ts',
+  'hmr': 'environments/environment.hmr.ts'
+};
 
 module.exports = function(options) {
 
@@ -306,7 +310,7 @@ module.exports = function(options) {
       new AotPlugin({
         "mainPath": "main.ts",
         "hostReplacementPaths": {
-          "environments/environment.ts": "environments/environment.ts"
+          "environments/environment.ts": environmentFiles[options.env]
         },
         "exclude": [],
         "tsConfigPath": "src/tsconfig.app.json",
