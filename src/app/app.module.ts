@@ -10,20 +10,20 @@ import {
 
 import { ROUTES } from './app.routes';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
 import { NoContentComponent } from './no-content/no-content.component';
 
 import { LoginModule } from './login/login.module';
 import { SharedModule } from './shared/shared.module';
+import { DashboardModule } from './dashboard/dashboard.module';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HomeComponent,
     NoContentComponent
   ],
   imports: [
     SharedModule,
+    DashboardModule,
     BrowserModule,
     FormsModule,
     HttpModule,
