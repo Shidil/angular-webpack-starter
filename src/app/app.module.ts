@@ -14,14 +14,16 @@ import { HomeComponent } from './home/home.component';
 import { NoContentComponent } from './no-content/no-content.component';
 
 import { LoginModule } from './login/login.module';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HomeComponent,
-    NoContentComponent,
+    NoContentComponent
   ],
   imports: [
+    SharedModule,
     BrowserModule,
     FormsModule,
     HttpModule,
