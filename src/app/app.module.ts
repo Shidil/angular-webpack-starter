@@ -13,6 +13,8 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NoContentComponent } from './no-content/no-content.component';
 
+import { LoginModule } from './login/login.module';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,6 +25,7 @@ import { NoContentComponent } from './no-content/no-content.component';
     BrowserModule,
     FormsModule,
     HttpModule,
+    LoginModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
   providers: [],
