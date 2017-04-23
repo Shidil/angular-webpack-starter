@@ -9,6 +9,8 @@ import {
 } from '@angular/router';
 
 import { ROUTES } from './app.routes';
+import { AuthGuard } from './_guards/auth.guard';
+
 import { AppComponent } from './app.component';
 import { NoContentComponent } from './no-content/no-content.component';
 
@@ -30,7 +32,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
     LoginModule,
     RouterModule.forRoot(ROUTES, { useHash: true, preloadingStrategy: PreloadAllModules })
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
