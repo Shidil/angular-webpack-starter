@@ -1,7 +1,7 @@
 {
-  "name": "consultation-tools",
+  "name": "angular-webpack-starter",
   "version": "0.0.0",
-  "license": "UNLICENCED",
+  "license": "ISC",
   "scripts": {
     "ng": "ng",
     "dev": "webpack-dev-server --hot --config config/webpack.config.dev.js",
